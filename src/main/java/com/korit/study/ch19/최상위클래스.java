@@ -34,6 +34,6 @@ public class 최상위클래스 {
         System.out.println(result2);
         boolean result3 = name2.equals(name4);
         System.out.println(result3);
-        // 추가
+        // 추가--
     }
 }
