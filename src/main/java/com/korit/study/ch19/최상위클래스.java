@@ -11,9 +11,9 @@ public class 최상위클래스 {
         Object d = b;
         Object e = "test";
         String f = "abc";
-        Car car = new Car("K3", "화이트");
-        Car car2 = new Car("K3", "화이트");
-        Object g = car;
+        Car car = new Car("K3","화이트");
+        Car car2 = new Car("K3","화이트");
+        Object g =  car;
         String h = car.toString();
 
         boolean result5 = car.equals(car2);
