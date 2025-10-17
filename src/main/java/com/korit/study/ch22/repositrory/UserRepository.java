@@ -1,4 +1,4 @@
-package com.korit.study.ch22.repositrory;
+package com.korit.study.ch22.repository;
 
 import com.korit.study.ch22.entity.User;
 
@@ -24,7 +24,7 @@ public class UserRepository {
 
     public void insert(User user) {
         User[] temp = Arrays.copyOf(users, users.length + 1);
-        user.setId(autoIncrementId++); // 1을줬기떄문에 후증가
+        user.setId(autoIncrementId++);
         temp[temp.length - 1] = user;
         users = temp;
     }
@@ -37,22 +37,23 @@ public class UserRepository {
         }
         return null;
     }
+
     private int generateId() {
-        return users[users.length].getId() +1;
+        return users[users.length].getId() + 1;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("User 배열: [");
-        for (int i =0 ; i < users.length; i++) {
+        stringBuilder.append("User 배열: [ ");
+        for (int i = 0; i < users.length; i++) {
             stringBuilder.append(users[i]);
             if (i != users.length - 1) {
                 stringBuilder.append(", ");
             }
         }
         stringBuilder.append(" ]");
-        return  stringBuilder.toString();
+
+        return stringBuilder.toString();
     }
 }
-

@@ -8,7 +8,6 @@ public class SignupDto {
     private String password;
     private String confirmPassword;
 
-
     public String getUsername() {
         return username;
     }
@@ -32,6 +31,7 @@ public class SignupDto {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
     public User toUser() {
         return new User(0, username, PasswordEncoder.encode(password));
     }

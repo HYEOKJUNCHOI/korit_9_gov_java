@@ -15,10 +15,10 @@ public class PasswordEncoder {
         return Long.toHexString(encodedHash);
     }
 
-    public static boolean match(String str,String encodedStr) {
-        if (Objects.isNull(str) || Objects.isNull(encodedStr)) {
+    public static boolean match(String 평문, String 암호문) {
+        if (Objects.isNull(평문) || Objects.isNull(암호문)) {
             return false;
         }
-        return encode(str).equals(encodedStr);
+        return encode(평문).equals(암호문);
     }
 }
