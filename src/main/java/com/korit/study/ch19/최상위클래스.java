@@ -15,6 +15,10 @@ public class 최상위클래스 {
         Car car2 = new Car("K3","화이트");
         Object g =  car;
         String h = car.toString();
+        Book book = new Book("k3", "화이트");
+        System.out.println(car.equals(book)); // 자료형이 달라서 비교안됨
+        System.out.println(car.hashCode() == book.hashCode()); // 헤시값으로 비교하니까 같다
+
 
         boolean result5 = car.equals(car2);
         System.out.println(result5);
