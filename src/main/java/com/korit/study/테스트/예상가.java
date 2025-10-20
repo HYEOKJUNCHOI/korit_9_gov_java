@@ -1,4 +1,4 @@
-package 테스트;
+package com.korit.study.테스트;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -18,15 +18,16 @@ public class 예상가 {
     static final int ETH_기준가 = 6_500_000;   // 원 (650만 원)
     static final int ETHU_기준가 = 214_412;    // 원
 
-    // ====== [세율 / 수수료] ======
+    // ====== [세율 / 수수료 / 부채] ======
     static final double 세후계수 = 0.78;    // 세금 22%
     static final double 수수료계수 = 0.996; // 수수료 0.4%
+    static final long 부채 = 88_040_000L;   // 🟢 총 부채 금액
 
     public static void main(String[] args) {
         Scanner 입력 = new Scanner(System.in);
         NumberFormat 통화 = NumberFormat.getNumberInstance(Locale.KOREA);
 
-        System.out.println("[XRP/ETH 입력 → ETF 실수령 계산기]");
+        System.out.println("[XRP/ETH → ETF 실수령 + 현물 + 부채 제외 자산 계산기]");
         System.out.print("XRP 예상 가격을 입력하세요(원 단위): ");
         double xrp가격 = 입력.nextDouble();
 
@@ -45,7 +46,7 @@ public class 예상가 {
         xrpt추정가 = Math.max(0, xrpt추정가);
         ethu추정가 = Math.max(0, ethu추정가);
 
-        // 3️⃣ 평가금액 계산
+        // 3️⃣ ETF 평가금액 계산
         long xrpt평가 = Math.round(xrpt추정가 * XRPT_보유수량);
         long ethu평가 = Math.round(ethu추정가 * ETHU_보유수량);
         long 총평가 = xrpt평가 + ethu평가;
@@ -60,7 +61,16 @@ public class 예상가 {
         double 세후수익 = (수익 > 0) ? 수익 * 세후계수 : 수익;
         double 최종실수령액 = (수익 > 0) ? (원금 + 세후수익) : 수수료차감총액;
 
-        // 7️⃣ 출력
+        // 🟢 7️⃣ XRP 현물 입력 및 평가금액 계산
+        System.out.print("\n현재 보유 중인 XRP(현물) 개수를 입력하세요: ");
+        long 현물갯수 = 입력.nextLong();
+        long 현물평가 = Math.round(xrp가격 * 현물갯수);
+
+        // 🟢 8️⃣ 최종 합산 및 부채 제외 자산 계산
+        double 최종합산 = 최종실수령액 + 현물평가;
+        double 부채제외금액 = 최종합산 - 부채;
+
+        // 9️⃣ 출력
         System.out.println("\n===== 계산 결과 =====");
         System.out.println("입력 XRP 가격: " + 통화.format(Math.round(xrp가격)) + "원");
         System.out.println("입력 ETH 가격: " + 통화.format(Math.round(eth가격)) + "원");
@@ -69,7 +79,7 @@ public class 예상가 {
         System.out.println("XRPT 추정가: " + 통화.format(Math.round(xrpt추정가)) + "원");
         System.out.println("ETHU 추정가: " + 통화.format(Math.round(ethu추정가)) + "원");
 
-        System.out.println("\n[평가금액]");
+        System.out.println("\n[ETF 평가금액]");
         System.out.println("XRPT 평가: " + 통화.format(xrpt평가) + "원");
         System.out.println("ETHU 평가: " + 통화.format(ethu평가) + "원");
         System.out.println("총 평가금액: " + 통화.format(총평가) + "원");
@@ -80,11 +90,24 @@ public class 예상가 {
 
         if (수익 > 0) {
             System.out.println("세후 수익(22% 차감): " + 통화.format(Math.round(세후수익)) + "원");
-            System.out.println("최종 실수령액: " + 통화.format(Math.round(최종실수령액)) + "원");
+            System.out.println("ETF 실수령액: " + 통화.format(Math.round(최종실수령액)) + "원");
         } else {
             System.out.println("손실 구간 → 세금 없음");
-            System.out.println("최종 실수령액: " + 통화.format(Math.round(최종실수령액)) + "원");
+            System.out.println("ETF 실수령액: " + 통화.format(Math.round(최종실수령액)) + "원");
         }
+
+        // 🟢 현물 포함 결과 출력
+        System.out.println("\n[XRP 현물]");
+        System.out.println("현물 개수: " + 통화.format(현물갯수) + "개");
+        System.out.println("현물 평가금액: " + 통화.format(현물평가) + "원");
+
+        // 🟢 최종 합산 및 부채 제외 결과
+        System.out.println("\n💰 [최종 합산 자산]");
+        System.out.println("ETF 실수령 + XRP 현물 = " + 통화.format(Math.round(최종합산)) + "원");
+
+        System.out.println("\n💸 [부채 반영]");
+        System.out.println("총 부채: " + 통화.format(부채) + "원");
+        System.out.println("부채 제외 금액(실질 자산): " + 통화.format(Math.round(부채제외금액)) + "원");
 
         // 참고용 기준가 표시
         System.out.println("\n[기준가 참고]");

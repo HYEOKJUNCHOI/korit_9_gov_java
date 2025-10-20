@@ -1,4 +1,4 @@
-package 테스트;
+package com.korit.study.테스트;
 
 import java.text.NumberFormat;
 import java.util.Locale;
