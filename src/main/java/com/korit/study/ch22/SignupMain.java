@@ -24,7 +24,7 @@ public class SignupMain {
             System.out.print("선택 >> ");
             String selectedMenu = scanner.nextLine();
 
-            if ("q".equalsIgnoreCase(selectedMenu)) {
+            if ("q".equalsIgnoreCase(selectedMenu)) { // ★★★★
                 System.out.println("프로그램 종료 중...");
                 break;
             } else if ("1".equals(selectedMenu)) {

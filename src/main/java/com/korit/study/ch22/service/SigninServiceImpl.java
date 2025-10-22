@@ -7,7 +7,7 @@ import com.korit.study.ch22.util.PasswordEncoder;
 
 import java.util.Objects;
 
-public class SigninServiceImpl implements SigninService {
+public class SigninServiceImpl implements SigninService { // 인터페이스에서 받아옴
     // 싱글톤으로 만들것
     private static SigninServiceImpl instance;
 

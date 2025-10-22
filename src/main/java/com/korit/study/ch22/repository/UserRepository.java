@@ -15,9 +15,9 @@ public class UserRepository {
         autoIncrementId = 1;
     }
 
-    public static UserRepository getInstance() {
-        if (Objects.isNull(instance)) {
-            instance = new UserRepository();
+    public static UserRepository getInstance() { // ★★★ getInstance()로 정의?
+        if (Objects.isNull(instance)) { // is has 붙으면 리턴값이 불리언이다. // 클래스명. 쩜찍으면 무조건 스태틱이다.
+            instance = new UserRepository(); // 첫생성값이 null이니까 , instance를 넣겟다.
         }
         return instance;
     }
@@ -47,8 +47,8 @@ public class UserRepository {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("User 배열: [ ");
         for (int i = 0; i < users.length; i++) {
-            stringBuilder.append(users[i]);
-            if (i != users.length - 1) {
+            stringBuilder.append(users[i]); // toString 생략되어있음
+            if (i != users.length - 1) { // 끝이 아니라면 쉼표를 찍어
                 stringBuilder.append(", ");
             }
         }
@@ -57,3 +57,4 @@ public class UserRepository {
         return stringBuilder.toString();
     }
 }
+
